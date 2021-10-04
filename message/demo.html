@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_2848192_jef1nccwh.css">
+  <title>message</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      border-radius: 4px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      padding: 16px;
+    }
+
+    .btn-group .button {
+      cursor: pointer;
+      outline: none;
+      padding: 10px 18px;
+      font-size: 14px;
+      color: #303030;
+      background-color: white;
+      border: 1px solid #777;
+      border-radius: 6px;
+    }
+
+    .btn-group .button:hover {
+      border: 1px solid lightskyblue;
+      color: lightskyblue
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      width: 250px;
+      transform: translate(-50%, -50px);
+      font-size: 16px;
+      color: #fff;
+      padding: 6px 18px;
+      background-color: #67C23A;
+      border-radius: 6px;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .message.show {
+      transform: translate(-50%, 20px);
+      opacity: 1;
+    }
+
+    .message.success {
+      background-color: #67C23A;
+    }
+
+    .message.warning {
+      background-color: #E6A23C;
+    }
+
+    .message.info {
+      background-color: #909399;
+    }
+
+    .message.danger {
+      background-color: #F56C6C;
+    }
+    .iconfont {
+      padding-right: 4px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Message消息提示</h2>
+    <div class="btn-group">
+      <button id="btn-success" class="button">成功</button>
+      <button id="btn-warning" class="button">警告</button>
+      <button id="btn-info" class="button">消息</button>
+      <button id="btn-danger" class="button">错误</button>
+    </div>
+  </div>
+
+  <script>
+    class Message {
+      // 老的写法，与下面的ES6的写法作用是一样的
+      // constructor(options){
+      //   this.type = options.type || 'success'
+      //   this.text = options.text || ''
+      // }
+
+      //ES6的写法，传递参数的同时，设置默认值
+      constructor({ type = 'success', text = '' }) {
+        this.type = type
+        this.text = text
+
+        this.create()
+        this.bind()
+      }
+      //创建提示消息的DOM节点
+      create() {
+        let $div = document.createElement('div')
+        this.$message = $div
+        $div.classList.add('message')
+        $div.classList.add(this.type)
+        let $icon = document.createElement('span')
+        $icon.classList.add('iconfont')
+        $icon.classList.add('icon-' + this.type)
+        $div.appendChild($icon)
+        let $text = document.createTextNode(this.text)
+        $div.appendChild($text)
+        document.body.appendChild($div)
+      }
+      bind() {
+        //剪头函数里的this等同于外面的this，注意这一点与function 函数的区别
+        setTimeout(() => this.show(), 0) //这里是为了页面渲染的时候不直接创建一个div.message节点
+        setTimeout(() => this.destroy(), 2000)
+      }
+      show() {
+        this.$message.classList.add('show')
+      }
+      destroy() {
+        this.$message.classList.remove('show')
+        setTimeout(() => this.$message.parentNode.removeChild(this.$message), 2000)
+        //用改变class来实现的话，点击一次页面上就会创建一个DOM节点，给浏览器造成负担，所以要加上删除节点的动作
+
+      }
+    }
+
+    document.querySelector('#btn-success').onclick = function () {
+      new Message({ text: '恭喜你，这是一条成功的消息' })
+    }
+    document.querySelector('#btn-warning').onclick = function () {
+      new Message({ text: '警告哦，这是一条警告消息',type: 'warning'})
+    }
+    document.querySelector('#btn-info').onclick = function () {
+      new Message({ text: '这是一条消息提示', type: 'info'})
+    }
+    document.querySelector('#btn-danger').onclick = function () {
+      new Message({ text: '错了哦，这是一调错误消息', type:'danger'})
+    }
+  </script>
+</body>
+
+</html>
