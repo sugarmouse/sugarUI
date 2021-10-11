@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialog</title>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_2859863_yd8jav6l6a.css">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      border-radius: 4px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      padding: 16px;
+    }
+
+    .dialog {
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      display: none;
+      transition: all .3s;
+    }
+
+    .dialog.show {
+      display: flex;
+    }
+    .dialog.appear {
+      opacity: 1;
+    }
+
+
+    .dialog .main {
+      width: 500px;
+      background-color: white;
+      border-radius: 6px;
+      padding: 10px;
+      transform: translateY(-100%);
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: all .3s;
+    }
+    .dialog.appear .main {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+
+
+    .container .button {
+      cursor: pointer;
+      outline: none;
+      padding: 6px 10px;
+      font-size: 14px;
+      color: #303030;
+      background-color: white;
+      border: 1px solid #777;
+      border-radius: 6px;
+    }
+
+    .container .button:hover {
+      border: 1px solid lightskyblue;
+      color: lightskyblue
+    }
+
+    .dialog .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .dialog .header .btn-close {
+      margin-left: auto;
+      background-color: white;
+      border: none;
+      outline: none;
+      color: #333;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dialog .content {
+      margin: 20px 0;
+      min-height: 60px;
+      font-size: 14px;
+      color: #555;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .dialog .footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .dialog .footer .button {
+      margin-left: 10px;
+    }
+
+    .dialog .footer .button.btn-confirm {
+      background: lightskyblue;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Dialog</h2>
+    <button class="button btn-open">打开弹窗</button>
+    <div class="dialog">
+      <div class="main">
+        <div class="header">
+          <span class="title">提示</span>
+          <button class="btn-close iconfont icon-close"></button>
+        </div>
+        <div class="content">
+          这是一段消息
+        </div>
+        <div class="footer">
+          <button class="button btn-cancel">取消</button>
+          <button class="button btn-confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    class Dialog {
+      constructor($node, options = {}) {
+        this.$node = $node
+        this.options = options
+        this.onCancel = options.onCancel || function() {}
+        this.onConfirm = options.onConfirm || function() {}
+
+        this.bind()
+      }
+
+      bind() {
+        self = this
+        document.querySelector('.btn-open').onclick = function () {
+          self.showDialog()
+        }
+        this.$node.querySelector('.btn-close').onclick = function () {
+          self.closeDialog()
+        }
+        this.$node.querySelector('.btn-cancel').onclick = function () {
+          self.closeDialog()
+          self.onCancel()
+
+        }
+        this.$node.querySelector('.btn-confirm').onclick = function () {
+          self.closeDialog()
+          self.onConfirm()
+        }
+      }
+      showDialog() {
+        this.$node.classList.add('show')
+        setTimeout(() => this.$node.classList.add('appear'),0)
+        
+      }
+      closeDialog() {
+        this.$node.classList.remove('appear')
+        setTimeout(() => this.$node.classList.remove('show'),400)
+      }
+    }
+    let dialog = new Dialog(document.querySelector('.dialog'),{
+      onCancel () {
+        console.log('用户点击了取消')
+      },
+      onConfirm() {
+        console.log('用户点击了确定')
+      }
+    })
+  </script>
+
+</body>
+
+</html>
