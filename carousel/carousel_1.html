@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel</title>
+  <link rel="stylesheet" href="./carousel_1.css">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      border-radius: 4px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      padding: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Carousel</h2>
+    <div class="carousel">
+      <div class="panels">
+        <a class="active" href="#1">1</a>
+        <a href="#2">2</a>
+        <a href="#3">3</a>
+        <a href="#4">4</a>
+      </div>
+      <div class="arrows">
+        <button class="arrow arrow-pre"></button>
+        <button class="arrow arrow-next"></button>
+      </div>
+      <ul class="indicators">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  <script src="./carousel_1.js"></script>
+
+</body>
+
+</html>
