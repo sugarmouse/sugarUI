@@ -1,0 +1,46 @@
+<!-- 实现组件化的简单carousel -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel</title>
+  <link rel="stylesheet" href="./carousel_3.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2>Carousel</h2>
+    <select class="animation-select">
+      <option value="slide">slide</option>
+      <option value="fade">fade</option>
+      <option value="zoom">zoom</option>
+    </select>
+    <div class="carousel">
+      <div class="panels">
+        <a id="1" href="#1" style="z-index: 1;">1</a>
+        <a id="2" href="#2">2</a>
+        <a id="3" href="#3">3</a>
+        <a id="4" href="#4">4</a>
+      </div>
+      <div class="arrows">
+        <button class="arrow arrow-pre"></button>
+        <button class="arrow arrow-next"></button>
+      </div>
+      <ul class="indicators">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    
+  </div>
+  <script src="./carousel_3.js"></script>
+
+</body>
+
+</html>

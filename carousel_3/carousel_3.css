@@ -1,0 +1,113 @@
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  border-radius: 4px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  padding: 16px;
+}
+.container select {
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.carousel {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+/* 面板样式 */
+.panels a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  cursor: default;
+}
+.panels a:nth-child(odd) {
+  background-color: lightcoral;
+  color:black;
+}
+.panels a:nth-child(even) {
+  background-color: lightblue;
+  color: grey;
+}
+
+/* 左右两个按钮的样式 */
+.arrows .arrow {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  outline:none;
+  background: rgba(10, 4, 4, 0.1);
+  top: 50%;
+  opacity: 0;
+  z-index: 100;
+  transition: all .3s;
+}
+.arrows .arrow.arrow-pre {
+  left: 10px;
+  transform: translate(-20px,-50%)
+}
+.arrows .arrow.arrow-next {
+  right: 10px;
+  transform: translate(20px, -50%);
+}
+/* 按钮内部的剪头图标 */
+.arrows .arrow::after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+}
+.arrows .arrow.arrow-pre::after {
+  transform: rotate(-135deg)
+}
+.arrows .arrow.arrow-next::after {
+  transform: rotate(45deg)
+}
+.carousel:hover .arrow {
+  opacity: 1;
+  transform: translate(0,-50%);
+}
+
+/* 下部指示条的样式 */
+.indicators {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  z-index: 100;
+}
+.indicators > li::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 2px;
+  background:grey;
+  border-radius: 2px;
+}
+.indicators > li {
+  display: inline-block;
+  list-style: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: all .3s;
+}
+.indicators > li.active::before {
+  background: white;
+}
+
